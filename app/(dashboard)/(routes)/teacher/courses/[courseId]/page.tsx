@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
+import { TitleForm } from "./_components/title-form";
 
 const CourseIdPage = async ({
   params,
@@ -23,6 +24,7 @@ const CourseIdPage = async ({
     },
   });
 
+  console.log(params, "course");
   if (!course) {
     return redirect("/");
   }
@@ -39,6 +41,7 @@ const CourseIdPage = async ({
   const completedFields = requiredFields.filter(Boolean).length;
 
   const completionText = `(${completedFields}/${totalFields})`;
+
   return (
     <div className="p-6 ">
       <div className="flex items-center justify-between">
@@ -55,6 +58,7 @@ const CourseIdPage = async ({
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Customize your course</h2>
           </div>
+          <TitleForm initialData={course} courseId={course.id} />
         </div>
       </div>
     </div>
